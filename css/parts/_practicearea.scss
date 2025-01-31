@@ -1,0 +1,62 @@
+@use 'mixin' as m;
+
+.pa_area {
+    h4 {
+        font-size: 1.5rem;
+        color: #ffffff;
+        background-color: #005497;
+        padding-left: 32px;
+        margin-bottom: 32px;
+        padding-block: 8px;
+        line-height: 1.5;
+    }
+
+    .flex {
+        width: 100%;
+        margin-bottom: 32px;
+
+        @include m.tab-max {
+            flex-direction: column;
+        }
+    }
+
+    .pa_text,
+    img {
+        width: 50%;
+
+        @include m.tab-max {
+            width: 100%;
+        }
+    }
+
+    img {
+        object-fit: contain;
+    }
+
+    .pa_text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 8px;
+
+        @include m.tab-max {
+            padding: 0;
+        }
+    }
+
+    .pa_text_top {
+        font-size: 1.25rem;
+        margin-bottom: 24px;
+    }
+
+    .btn {
+        width: 180px;
+        font-size: 1.125rem;
+        padding: 16px;
+        margin-top: 24px;
+
+        @include m.tab-max {
+            margin-bottom: 16px;
+        }
+    }
+}

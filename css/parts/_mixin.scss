@@ -1,0 +1,49 @@
+$pcmax: 1700px;
+$header: 1202px;
+$tab-min: 768px;
+$tab-max: 1023.98px;
+$sp: 767.98px;
+$about: 1150px;
+$minimum: 500px;
+@mixin sp {
+    @media screen and (max-width: ($sp)) {
+        @content;
+    }
+}
+
+@mixin tab {
+    @media screen and (min-width: #{$tab-min}) and (max-width: #{$tab-max}) {
+        @content;
+    }
+}
+
+@mixin header {
+    @media screen and (max-width: ($header)) {
+        @content;
+    }
+}
+
+@mixin pcmax {
+    @media screen and (min-width: ($pcmax)) {
+        @content;
+    }
+}
+
+@mixin about {
+    @media screen and (max-width: ($about)) {
+        @content;
+    }
+}
+
+@mixin minimum {
+    @media screen and (max-width: ($minimum)) {
+        @content;
+    }
+}
+
+
+@mixin tab-max {
+    @media screen and (max-width: ($tab-max)) {
+        @content;
+    }
+}
