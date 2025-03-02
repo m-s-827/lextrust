@@ -1,0 +1,958 @@
+@charset "UTF-8";
+/* 基本要素 */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  color: #0D0116;
+  font-family: "Helvetica", "Arial", sans-serif;
+  font-size: 1rem;
+}
+
+img {
+  max-width: 100%;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  list-style: none;
+  text-decoration: none;
+  color: #0D0116;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex_reverse {
+  flex-direction: row-reverse;
+}
+
+h3 {
+  font-size: 1.875rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 64px;
+  color: #005497;
+  gap: 8px;
+}
+h3 .eng {
+  font-size: 1.25rem;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  padding-inline: 2%;
+}
+
+.pa_area h4 {
+  font-size: 1.5rem;
+  color: #ffffff;
+  background-color: #005497;
+  padding-left: 32px;
+  margin-bottom: 32px;
+  padding-block: 8px;
+  line-height: 1.5;
+}
+.pa_area .flex {
+  width: 100%;
+  margin-bottom: 32px;
+}
+@media screen and (max-width: 1023.98px) {
+  .pa_area .flex {
+    flex-direction: column;
+  }
+}
+.pa_area .pa_text,
+.pa_area img {
+  width: 50%;
+}
+@media screen and (max-width: 1023.98px) {
+  .pa_area .pa_text,
+.pa_area img {
+    width: 100%;
+  }
+}
+.pa_area img {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.pa_area .pa_text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px;
+}
+@media screen and (max-width: 1023.98px) {
+  .pa_area .pa_text {
+    padding: 0;
+  }
+}
+.pa_area .pa_text_top {
+  font-size: 1.25rem;
+  margin-bottom: 24px;
+}
+.pa_area .btn {
+  width: 180px;
+  font-size: 1.125rem;
+  padding: 16px;
+  margin-top: 24px;
+}
+@media screen and (max-width: 1023.98px) {
+  .pa_area .btn {
+    margin-bottom: 16px;
+  }
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* header */
+#header {
+  height: 80px;
+  justify-content: space-between;
+  position: fixed;
+  align-items: center;
+  width: 100%;
+  padding-inline: 3%;
+  background: #ffffff;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom: 1px solid #ccc;
+  z-index: 200;
+  top: -100px;
+  /* 初期位置（画面外） */
+  display: flex;
+}
+#header .logo {
+  width: 180px;
+}
+#header .headerNav_menu a {
+  position: relative;
+}
+@media screen and (max-width: 1202px) {
+  #header .headerNav_menu a {
+    font-size: 20px;
+    width: 100%;
+    display: block;
+    color: white;
+  }
+}
+#header .headerNav_menu a::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  background-color: #005497;
+  height: 2px;
+  transition: all 0.5s ease;
+  visibility: hidden;
+}
+@media screen and (max-width: 1202px) {
+  #header .headerNav_menu a::after {
+    width: 100%;
+    height: 1px;
+    background-color: #ffffff;
+    transition: unset;
+    visibility: visible;
+  }
+}
+#header .headerNav_menu a::after:hover::after {
+  visibility: visible;
+  width: 100%;
+}
+#header .contact_btn {
+  background-color: #FFEF00;
+  align-items: center;
+  display: flex;
+  padding: 16px;
+}
+@media screen and (max-width: 1202px) {
+  #header .contact_btn {
+    width: 130px;
+  }
+}
+#header .contact_btn a {
+  color: #005497;
+  font-weight: bold;
+}
+#header .contact_btn:hover {
+  background-color: #e8e290;
+}
+#header .headerNav,
+#header .headerNav_menu {
+  gap: 24px;
+  align-items: center;
+}
+@media screen and (max-width: 1202px) {
+  #header .headerNav,
+#header .headerNav_menu {
+    align-items: unset;
+  }
+}
+#header .toggle_btn {
+  width: 32px;
+  height: 24px;
+  position: relative;
+  z-index: 80;
+  display: none;
+}
+#header .toggle_btn span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #0D0116;
+  position: absolute;
+  transition: all 0.3s;
+  z-index: 100;
+}
+#header .toggle_btn span:nth-child(2) {
+  top: 50%;
+}
+#header .toggle_btn span:nth-child(3) {
+  bottom: 0;
+}
+#header .mask {
+  background-color: #005497;
+  opacity: 0.8;
+  position: fixed;
+  z-index: 90;
+  width: 100%;
+  height: 100vh;
+  top: 80px;
+  left: 0;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s;
+}
+@media screen and (max-width: 1202px) {
+  #header .toggle_btn {
+    display: block;
+  }
+  #header .headerNav {
+    flex-direction: column;
+    position: absolute;
+    top: calc(100% + 80px);
+    left: 0;
+    z-index: 500;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s;
+    padding-inline: 3%;
+  }
+  #header .headerNav_menu {
+    z-index: 500;
+    flex-direction: column;
+  }
+}
+
+#header.open .toggle_btn span:nth-child(1) {
+  top: 50%;
+  transform: rotate(-45deg);
+}
+#header.open .toggle_btn span:nth-child(2) {
+  display: none;
+}
+#header.open .toggle_btn span:nth-child(3) {
+  top: 50%;
+  transform: rotate(45deg);
+}
+#header.open .headerNav {
+  opacity: 1;
+  visibility: visible;
+  width: 100%;
+}
+#header.open .mask {
+  opacity: 0.9;
+  visibility: visible;
+  width: 100%;
+}
+
+/* top */
+#top {
+  background: url("../img/TOP.jpg");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  height: 720px;
+}
+@media screen and (max-width: 767.98px) {
+  #top {
+    background-position: 63% top;
+    height: 100vh;
+    margin-top: 0px;
+  }
+}
+@media screen and (min-width: 1700px) {
+  #top {
+    aspect-ratio: 2/1;
+    height: auto;
+  }
+}
+#top .topText {
+  position: absolute;
+  left: 2.5%;
+  top: 25%;
+}
+@media screen and (max-width: 767.98px) {
+  #top .topText {
+    top: 40%;
+  }
+}
+#top h2 {
+  font-size: 3.5rem;
+  padding-bottom: 32px;
+  color: #005497;
+  font-weight: 700;
+}
+@media screen and (max-width: 767.98px) {
+  #top h2 {
+    font-size: 5.4vw;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1023.98px) {
+  #top h2 {
+    font-size: 5.7vw;
+  }
+}
+#top .check {
+  width: 24px;
+  margin-right: 8px;
+}
+@media screen and (max-width: 767.98px) {
+  #top .check {
+    width: 3.2vw;
+  }
+}
+#top .topSubText {
+  margin-bottom: 4rem;
+}
+@media screen and (max-width: 767.98px) {
+  #top .topSubText {
+    margin-bottom: 2rem;
+  }
+}
+#top li {
+  font-size: 2rem;
+}
+@media screen and (max-width: 767.98px) {
+  #top li {
+    font-size: 3.2vw;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1023.98px) {
+  #top li {
+    font-size: 1.5rem;
+  }
+}
+
+.btn {
+  background-color: #FFEF00;
+  width: 400px;
+  display: inline-block;
+  font-size: 30px;
+  padding: 30px;
+  text-align: center;
+  font-weight: bold;
+  color: #005497;
+  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.16);
+}
+@media screen and (max-width: 767.98px) {
+  .btn {
+    width: 40vw;
+    font-size: 4.2vw;
+    padding: 2.6vw;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1023.98px) {
+  .btn {
+    width: 40vw;
+  }
+}
+
+/*practiceArea*/
+.practiceArea_List {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 16px;
+  gap: 32px;
+}
+@media screen and (max-width: 767.98px) {
+  .practiceArea_List {
+    flex-direction: column;
+  }
+}
+.practiceArea_List .area {
+  margin-top: 8px;
+  width: 25%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+@media screen and (max-width: 767.98px) {
+  .practiceArea_List .area {
+    width: 100%;
+  }
+}
+.practiceArea_List .area::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -16px;
+  /* gap の半分 */
+  transform: translateY(-50%);
+  width: 1px;
+  height: 80%;
+  background-color: #005497;
+}
+@media screen and (max-width: 767.98px) {
+  .practiceArea_List .area::after {
+    display: none;
+  }
+}
+.practiceArea_List .area:last-child::after {
+  display: none;
+  /* 最後のボックスの区切り線を非表示 */
+}
+.practiceArea_List .area p {
+  padding: 8px;
+  text-align: left;
+  flex-grow: 1;
+}
+.practiceArea_List h4 {
+  font-size: 1.125rem;
+  background-color: #005497;
+  color: #ffffff;
+  padding-left: 24px;
+  padding-block: 8px;
+  text-align: left;
+}
+.practiceArea_List .detail_btn {
+  margin: 0 auto;
+  background-color: #C7CED3;
+  color: #005497;
+  font-weight: bold;
+  padding: 8px 16px;
+}
+@media screen and (max-width: 767.98px) {
+  .practiceArea_List .detail_btn {
+    margin: 0;
+    background-color: unset;
+    color: #005497;
+    font-weight: bold;
+    padding: 8px 0px;
+    text-align: right;
+  }
+}
+
+/*about*/
+.about_top {
+  position: relative;
+}
+.about_top .overlay-text {
+  position: absolute;
+  font-size: 1.94vw;
+  font-weight: bold;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@media screen and (max-width: 1150px) {
+  .about_top .overlay-text {
+    top: 20px;
+  }
+}
+
+.office {
+  margin-top: 64px;
+  gap: 32px;
+}
+@media screen and (max-width: 1150px) {
+  .office {
+    flex-direction: column;
+  }
+}
+
+.officeImg {
+  width: 45%;
+  position: relative;
+  /* 基準となる親要素 */
+}
+@media screen and (max-width: 1150px) {
+  .officeImg {
+    width: 100%;
+  }
+}
+
+.officeImg1 {
+  max-width: 400px;
+  display: block;
+}
+@media screen and (max-width: 1150px) {
+  .officeImg1 {
+    max-width: 80%;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+}
+
+.officeImg2 {
+  position: absolute;
+  max-width: 300px;
+  left: 200px;
+  top: 200px;
+}
+@media screen and (max-width: 1150px) {
+  .officeImg2 {
+    max-width: 60%;
+    left: unset;
+    top: unset;
+    right: 10px;
+    bottom: -20%;
+  }
+}
+
+.officeImg::before {
+  content: "";
+  position: absolute;
+  background-color: #005497;
+  width: 400px;
+  height: 300px;
+  left: 65px;
+  top: 60px;
+  z-index: -1;
+}
+@media screen and (max-width: 1150px) {
+  .officeImg::before {
+    width: 75%;
+    height: 100%;
+    left: 10%;
+    top: 10%;
+  }
+}
+
+.officeText {
+  width: 55%;
+}
+@media screen and (max-width: 1150px) {
+  .officeText {
+    width: 100%;
+  }
+}
+.officeText .officeText_top {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #005497;
+  margin-bottom: 32px;
+  margin-top: 100px;
+}
+.officeText .officeText_main {
+  line-height: 1.5;
+}
+
+/*feature*/
+.featureText_top {
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  margin-bottom: 64px;
+}
+
+.featureList_all {
+  display: flex;
+  justify-content: space-between;
+  gap: 5%;
+}
+@media screen and (max-width: 767.98px) {
+  .featureList_all {
+    padding-inline: 3%;
+    flex-direction: column;
+  }
+}
+.featureList_all .featureList {
+  width: 33.3333333333%;
+  border: 1px solid #005497;
+  padding: 16px;
+}
+@media screen and (max-width: 767.98px) {
+  .featureList_all .featureList {
+    max-width: 350px;
+    margin: 0 auto;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+}
+.featureList_all .number {
+  font-size: 3.5rem;
+  color: #005497;
+  font-weight: 700;
+  letter-spacing: -0.2rem;
+}
+.featureList_all img {
+  width: 120px;
+  display: block;
+  margin: 0 auto;
+}
+.featureList_all .hand {
+  margin-bottom: 45px;
+}
+.featureList_all h4 {
+  font-size: 1.25rem;
+  margin-block: 24px;
+}
+.featureList_all h4 .sub_text {
+  text-align: right;
+  display: block;
+}
+
+/*lawyers*/
+.lawyer {
+  width: 100%;
+  gap: 5%;
+  margin-bottom: 64px;
+}
+@media screen and (max-width: 767.98px) {
+  .lawyer {
+    flex-direction: column;
+  }
+}
+.lawyer .lawyer_img {
+  width: 45%;
+  position: relative;
+}
+@media screen and (max-width: 767.98px) {
+  .lawyer .lawyer_img {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+.lawyer .lawyer_img::after {
+  content: "";
+  position: absolute;
+  background-color: #005497;
+  width: 520px;
+  aspect-ratio: 520/487;
+  left: 20px;
+  top: 20px;
+  z-index: -1;
+  max-width: 100%;
+}
+@media screen and (max-width: 767.98px) {
+  .lawyer .lawyer_img::after {
+    width: 100%;
+  }
+}
+.lawyer .woman_img {
+  margin-left: -20px;
+}
+@media screen and (max-width: 767.98px) {
+  .lawyer .woman_img {
+    margin-left: unset;
+  }
+}
+.lawyer .woman_back::after {
+  left: 0px;
+}
+@media screen and (max-width: 767.98px) {
+  .lawyer .woman_back::after {
+    left: 20px;
+  }
+}
+.lawyer .lawer_category {
+  font-weight: bold;
+}
+.lawyer .lawyer_intro {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+@media screen and (max-width: 767.98px) {
+  .lawyer .lawyer_intro {
+    width: 100%;
+    margin-top: 32px;
+  }
+}
+
+/*voice*/
+#voice {
+  background-color: rgba(0, 191, 255, 0.15);
+  padding-block: 36px;
+}
+#voice h3 {
+  margin-top: 0;
+}
+
+.voice_box {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 24px 0.3%;
+  background-color: #ffffff;
+  text-align: center;
+  margin: 0 10px;
+}
+.voice_box .voice_img {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+}
+.voice_box .voice_name,
+.voice_box .voiceText_top {
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.voice_box .voiceText {
+  text-align: left;
+}
+
+/* 高さを揃える */
+.slick-track {
+  display: flex;
+}
+
+.slick-slide {
+  height: auto !important;
+}
+
+/* 矢印 */
+.slick-prev,
+.slick-next {
+  width: 40px;
+  /* 矢印の幅 */
+  height: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slick-prev {
+  left: -5px;
+  /* スライダーの内側に配置 */
+}
+@media screen and (max-width: 767.98px) {
+  .slick-prev {
+    left: -10px;
+  }
+}
+
+.slick-next {
+  right: -5px;
+}
+@media screen and (max-width: 767.98px) {
+  .slick-next {
+    right: -10px;
+  }
+}
+
+.slick-slider {
+  padding: 0 25px;
+  /* arrows の分だけ余白を確保 */
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: #005497;
+  font-size: 25px;
+}
+
+.slick-dots {
+  max-width: 1280px;
+  /* スライダーと同じ幅に */
+  margin: 0 auto;
+  /* 中央配置 */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#access {
+  margin-bottom: 100px;
+}
+#access .flex {
+  justify-content: space-between;
+  width: 100%;
+  gap: 5%;
+}
+@media screen and (max-width: 767.98px) {
+  #access .flex {
+    flex-direction: column;
+  }
+}
+#access iframe {
+  filter: grayscale(100%);
+  width: 49%;
+}
+@media screen and (max-width: 767.98px) {
+  #access iframe {
+    width: 100%;
+  }
+}
+#access .address {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 51%;
+  align-items: center;
+}
+@media screen and (max-width: 767.98px) {
+  #access .address {
+    width: 100%;
+    align-items: unset;
+    margin-top: 32px;
+  }
+}
+#access .address dl {
+  margin-left: -110px;
+}
+@media screen and (max-width: 767.98px) {
+  #access .address dl {
+    margin-left: unset;
+  }
+}
+#access .address dt {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+#access .address dd {
+  margin-bottom: 16px;
+}
+#access .address .btn {
+  margin-top: 56px;
+}
+@media screen and (max-width: 767.98px) {
+  #access .address .btn {
+    margin-top: 32px;
+  }
+}
+
+/*footer*/
+#footer {
+  background-color: #005497;
+  color: #ffffff;
+  padding: 32px 0px;
+}
+#footer .flex {
+  justify-content: space-between;
+}
+@media screen and (max-width: 1202px) {
+  #footer .flex {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+}
+#footer nav .flex {
+  gap: 32px;
+}
+@media screen and (max-width: 1202px) {
+  #footer nav .flex {
+    flex-direction: row;
+    gap: 16px;
+  }
+}
+#footer nav a {
+  color: #ffffff;
+  font-size: 1.5rem;
+}
+@media screen and (max-width: 1202px) {
+  #footer nav a {
+    font-size: 0.875rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  #footer nav a {
+    font-size: 0.8rem;
+  }
+}
+#footer img {
+  width: 270px;
+}
+#footer .copyright {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.fadein {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.containers {
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.contact-form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 64px;
+}
+
+.form-group {
+  display: flex;
+  margin-top: 32px;
+}
+
+.form-group label {
+  font-size: 1.125rem;
+  color: #0D0116;
+  width: 22%;
+  /* ラベルの幅を固定 */
+}
+
+.form-group input,
+.contact-form textarea {
+  flex-grow: 1;
+  /* 入力フィールドが余白を埋める */
+  padding: 10px;
+  border: 2px solid #005497;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.contact-form textarea {
+  height: 300px;
+  margin-top: 5px;
+}
+
+.contact-form button {
+  background-color: #005497;
+  color: white;
+  font-size: 1.5rem;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  font-weight: bold;
+  margin-top: 32px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background-color: #003b73;
+}
+/*# sourceMappingURL=style.css.map */

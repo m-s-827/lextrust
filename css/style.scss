@@ -1,0 +1,886 @@
+@charset "UTF-8";
+@use 'parts/mixin' as m;
+@use 'parts/basic';
+@use 'parts/practicearea';
+
+html, body {
+    overflow-x: hidden;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+
+/* header */
+#header {
+    height: 80px;
+    justify-content: space-between;
+    position: fixed;
+    align-items: center;
+    width: 100%;
+    padding-inline: 3%;
+    background: #ffffff;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom: 1px solid #ccc;
+    z-index: 200;
+    top: -100px;
+    /* 初期位置（画面外） */
+    display: flex;
+
+    .logo {
+        width: 180px;
+    }
+
+    .headerNav_menu {
+        a {
+            position: relative;
+
+            @include m.header {
+                font-size: 20px;
+                width: 100%;
+                display: block;
+                color: white;
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: -6px;
+                left: 0;
+                width: 0;
+                background-color: #005497;
+                height: 2px;
+                transition: all .5s ease;
+                visibility: hidden;
+
+                @include m.header {
+                    width: 100%;
+                    height: 1px;
+                    background-color: #ffffff;
+                    transition: unset;
+                    visibility: visible;
+                }
+
+                &:hover::after {
+                    visibility: visible;
+                    width: 100%;
+                }
+            }
+
+        }
+    }
+
+    .contact_btn {
+        background-color: #FFEF00;
+        align-items: center;
+        display: flex;
+        padding: 16px;
+
+        @include m.header {
+            width: 130px;
+        }
+
+        a {
+            color: #005497;
+            font-weight: bold;
+        }
+
+        &:hover {
+            background-color: #e8e290;
+        }
+    }
+
+    .headerNav,
+    .headerNav_menu {
+        gap: 24px;
+        align-items: center;
+
+        @include m.header {
+            align-items: unset;
+        }
+    }
+
+    .toggle_btn {
+        width: 32px;
+        height: 24px;
+        position: relative;
+        z-index: 80;
+        display: none;
+
+        span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #0D0116;
+            position: absolute;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        span:nth-child(2) {
+            top: 50%;
+        }
+
+        span:nth-child(3) {
+            bottom: 0;
+        }
+    }
+
+    .mask {
+        background-color: #005497;
+        opacity: .8;
+        position: fixed;
+        z-index: 90;
+        width: 100%;
+        height: 100vh;
+        top: 80px;
+        left: 0;
+        cursor: pointer;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.5s;
+    }
+
+
+    @include m.header {
+        .toggle_btn {
+            display: block;
+        }
+
+        .headerNav {
+            flex-direction: column;
+            position: absolute;
+            top: calc(100% + 80px);
+            left: 0;
+            z-index: 500;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.5s;
+            padding-inline: 3%;
+        }
+
+
+        .headerNav_menu {
+            z-index: 500;
+            flex-direction: column;
+        }
+
+    }
+}
+
+#header.open {
+    .toggle_btn {
+        span {
+            &:nth-child(1) {
+                top: 50%;
+                transform: rotate(-45deg);
+            }
+
+            &:nth-child(2) {
+                display: none;
+            }
+
+            &:nth-child(3) {
+                top: 50%;
+                transform: rotate(45deg);
+            }
+        }
+    }
+
+    .headerNav {
+        opacity: 1;
+        visibility: visible;
+        width: 100%;
+    }
+
+    .mask {
+        opacity: .9;
+        visibility: visible;
+        width: 100%;
+    }
+}
+
+/* top */
+#top {
+    background: url('../img/TOP.jpg');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    height: 720px;
+
+    @include m.sp {
+        background-position: 63% top;
+        height: 100vh;
+        margin-top: 0px;
+    }
+
+    @include m.pcmax {
+        aspect-ratio: 2 / 1;
+        height: auto;
+    }
+
+    .topText {
+        position: absolute;
+        left: 2.5%;
+        top: 25%;
+
+        @include m.sp {
+            top: 40%;
+        }
+    }
+
+    h2 {
+        font-size: 3.5rem;
+        padding-bottom: 32px;
+        color: #005497;
+        font-weight: 700;
+
+        @include m.sp {
+            font-size: 5.4vw;
+        }
+
+        @include m.tab {
+            font-size: 5.7vw;
+        }
+    }
+
+    .check {
+        width: 24px;
+        margin-right: 8px;
+
+        @include m.sp {
+            width: 3.2vw;
+        }
+
+    }
+
+    .topSubText {
+        margin-bottom: 4rem;
+
+        @include m.sp {
+            margin-bottom: 2rem;
+        }
+    }
+
+    li {
+        font-size: 2rem;
+
+        @include m.sp {
+            font-size: 3.2vw;
+        }
+
+        @include m.tab {
+            font-size: 1.5rem;
+        }
+    }
+}
+
+.btn {
+    background-color: #FFEF00;
+    width: 400px;
+    display: inline-block;
+    font-size: 30px;
+    padding: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: #005497;
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.16);
+
+    @include m.sp {
+        width: 40vw;
+        font-size: 4.2vw;
+        padding: 2.6vw;
+    }
+
+
+    @include m.tab {
+        width: 40vw;
+    }
+}
+
+/*practiceArea*/
+.practiceArea_List {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 16px;
+    gap: 32px;
+
+    @include m.sp {
+        flex-direction: column;
+    }
+
+    .area {
+        margin-top: 8px;
+        width: calc(100% / 4);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        @include m.sp {
+            width: 100%;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: -16px;
+            /* gap の半分 */
+            transform: translateY(-50%);
+            width: 1px;
+            height: 80%;
+            background-color: #005497;
+
+            @include m.sp {
+                display: none;
+            }
+        }
+
+        &:last-child::after {
+            display: none;
+            /* 最後のボックスの区切り線を非表示 */
+        }
+
+        p {
+            padding: 8px;
+            text-align: left;
+            flex-grow: 1;
+        }
+    }
+
+    h4 {
+        font-size: 1.125rem;
+        background-color: #005497;
+        color: #ffffff;
+        padding-left: 24px;
+        padding-block: 8px;
+        text-align: left;
+    }
+
+    .detail_btn {
+        margin: 0 auto;
+        background-color: #C7CED3;
+        color: #005497;
+        font-weight: bold;
+        padding: 8px 16px;
+
+
+        @include m.sp {
+            margin: 0;
+            background-color: unset;
+            color: #005497;
+            font-weight: bold;
+            padding: 8px 0px;
+            text-align: right;
+        }
+    }
+}
+
+/*about*/
+.about_top {
+    position: relative;
+
+    .overlay-text {
+        position: absolute;
+        font-size: 1.94vw;
+        font-weight: bold;
+        top: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        @include m.about {
+            top: 20px;
+        }
+    }
+}
+
+.office {
+    margin-top: 64px;
+    gap: 32px;
+
+    @include m.about {
+        flex-direction: column;
+    }
+
+}
+
+.officeImg {
+    width: 45%;
+    position: relative;
+
+    @include m.about {
+        width: 100%;
+    }
+
+    /* 基準となる親要素 */
+
+}
+
+.officeImg1 {
+    max-width: 400px;
+    display: block;
+
+    @include m.about {
+        max-width: 80%;
+        object-fit: cover;
+    }
+}
+
+.officeImg2 {
+    position: absolute;
+    max-width: 300px;
+    left: 200px;
+    top: 200px;
+
+    @include m.about {
+        max-width: 60%;
+        left: unset;
+        top: unset;
+        right: 10px;
+        bottom: -20%;
+    }
+}
+
+.officeImg::before {
+    content: "";
+    position: absolute;
+    background-color: #005497;
+    width: 400px;
+    height: 300px;
+    left: 65px;
+    top: 60px;
+    z-index: -1;
+
+    @include m.about {
+        width: 75%;
+        height: 100%;
+        left: 10%;
+        top: 10%;
+    }
+}
+
+.officeText {
+    width: 55%;
+
+    @include m.about {
+        width: 100%;
+    }
+
+    .officeText_top {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #005497;
+        margin-bottom: 32px;
+        margin-top: 100px;
+    }
+
+    .officeText_main {
+        line-height: 1.5;
+    }
+}
+
+
+/*feature*/
+.featureText_top {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    margin-bottom: 64px;
+}
+
+.featureList_all {
+    display: flex;
+    justify-content: space-between;
+    gap: 5%;
+
+    @include m.sp {
+        padding-inline: 3%;
+        flex-direction: column;
+    }
+
+    .featureList {
+        width: calc(100% / 3);
+        border: 1px solid #005497;
+        padding: 16px;
+
+        @include m.sp {
+            max-width: 350px;
+            margin: 0 auto;
+            width: 100%;
+            margin-bottom: 24px;
+        }
+    }
+
+    .number {
+        font-size: 3.5rem;
+        color: #005497;
+        font-weight: 700;
+        letter-spacing: -0.2rem;
+    }
+
+    img {
+        width: 120px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .hand {
+        margin-bottom: 45px;
+    }
+
+    h4 {
+        font-size: 1.25rem;
+        margin-block: 24px;
+
+        .sub_text {
+            text-align: right;
+            display: block;
+        }
+    }
+}
+
+/*lawyers*/
+.lawyer {
+    width: 100%;
+    gap: 5%;
+    margin-bottom: 64px;
+
+    @include m.sp {
+        flex-direction: column;
+    }
+
+
+    .lawyer_img {
+        width: 45%;
+        position: relative;
+
+        @include m.sp {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            background-color: #005497;
+            width: 520px;
+            aspect-ratio: 520 / 487;
+            left: 20px;
+            top: 20px;
+            z-index: -1;
+            max-width: 100%;
+
+            @include m.sp {
+                width: 100%;
+            }
+        }
+
+    }
+
+    .woman_img {
+        margin-left: -20px;
+
+        @include m.sp {
+            margin-left: unset;
+        }
+    }
+
+    .woman_back::after {
+        left: 0px;
+
+        @include m.sp {
+            left: 20px;
+        }
+    }
+
+    .lawer_category {
+        font-weight: bold;
+    }
+
+    .lawyer_intro {
+        width: 55%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        @include m.sp {
+            width: 100%;
+            margin-top: 32px;
+        }
+    }
+}
+
+/*voice*/
+#voice {
+    background-color: rgba(0, 191, 255, 0.15);
+    padding-block: 36px;
+
+    h3 {
+        margin-top: 0;
+    }
+}
+
+.voice_box {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 24px 0.3%;
+    background-color: #ffffff;
+    text-align: center;
+    margin: 0 10px;
+
+
+    .voice_img {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 10px;
+        border-radius: 50%;
+    }
+
+    .voice_name,
+    .voiceText_top {
+        font-weight: bold;
+        margin-bottom: 5px;
+        text-align: center;
+    }
+
+    .voiceText {
+        text-align: left;
+    }
+
+}
+
+/* 高さを揃える */
+.slick-track {
+    display: flex;
+}
+
+.slick-slide {
+    height: auto !important;
+}
+
+
+/* 矢印 */
+.slick-prev,
+.slick-next {
+    width: 40px;
+    /* 矢印の幅 */
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.slick-prev {
+    left: -5px;
+
+    /* スライダーの内側に配置 */
+    @include m.sp {
+        left: -10px;
+    }
+}
+
+.slick-next {
+    right: -5px;
+
+    @include m.sp {
+        right: -10px;
+    }
+}
+
+.slick-slider {
+    padding: 0 25px;
+    /* arrows の分だけ余白を確保 */
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: #005497;
+    font-size: 25px;
+}
+
+.slick-dots {
+    max-width: 1280px;
+    /* スライダーと同じ幅に */
+    margin: 0 auto;
+    /* 中央配置 */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#access {
+    margin-bottom: 100px;
+
+    .flex {
+        justify-content: space-between;
+        width: 100%;
+        gap: 5%;
+
+        @include m.sp {
+            flex-direction: column;
+        }
+    }
+
+    iframe {
+        filter: grayscale(100%);
+        width: 49%;
+
+        @include m.sp {
+            width: 100%;
+        }
+    }
+
+    .address {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 51%;
+        align-items: center;
+
+        @include m.sp {
+            width: 100%;
+            align-items: unset;
+            margin-top: 32px;
+        }
+
+        dl {
+            margin-left: -110px;
+
+            @include m.sp {
+                margin-left: unset;
+            }
+        }
+
+        dt {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        dd {
+            margin-bottom: 16px;
+        }
+
+        .btn {
+            margin-top: 56px;
+
+            @include m.sp {
+                margin-top: 32px;
+            }
+        }
+    }
+}
+
+/*footer*/
+#footer {
+    background-color: #005497;
+    color: #ffffff;
+    padding: 32px 0px;
+
+    .flex {
+        justify-content: space-between;
+
+        @include m.header {
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+    }
+
+    nav {
+        .flex {
+            gap: 32px;
+
+            @include m.header {
+                flex-direction: row;
+                gap: 16px;
+            }
+        }
+
+        a {
+            color: #ffffff;
+            font-size: 1.5rem;
+
+            @include m.header {
+                font-size: 0.875rem;
+            }
+
+            @include m.minimum {
+                font-size: 0.8rem;
+            }
+        }
+    }
+
+    img {
+        width: 270px;
+    }
+
+    .copyright {
+        text-align: center;
+        margin-top: 16px;
+    }
+}
+
+.fadein {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+
+.containers {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.contact-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 64px;
+}
+
+.form-group {
+    display: flex;
+    margin-top: 32px;
+}
+
+.form-group label {
+    font-size: 1.125rem;
+    color: #0D0116;
+    width: 22%;
+    /* ラベルの幅を固定 */
+}
+
+.form-group input,
+.contact-form textarea {
+    flex-grow: 1;
+    /* 入力フィールドが余白を埋める */
+    padding: 10px;
+    border: 2px solid #005497;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.contact-form textarea {
+    height: 300px;
+    margin-top: 5px;
+}
+
+.contact-form button {
+    background-color: #005497;
+    color: white;
+    font-size: 1.5rem;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    font-weight: bold;
+    margin-top: 32px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: #003b73;
+}
